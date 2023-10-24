@@ -1,29 +1,28 @@
 package exercicios
 
 // Function to calculate the numerical value of a card
+// Function to calculate the numerical value of a card
 func ParseCard(card string) int {
 	switch card {
-	case "ace", "ás":
+	case "ace":
 		return 11
-	case "two", "dois":
+	case "two":
 		return 2
-	case "three", "três":
+	case "three":
 		return 3
-	case "four", "quatro":
+	case "four":
 		return 4
-	case "five", "cinco":
+	case "five":
 		return 5
-	case "six", "seis":
+	case "six":
 		return 6
-	case "seven", "sete":
+	case "seven":
 		return 7
-	case "eight", "oito":
+	case "eight":
 		return 8
-	case "nine", "nove":
+	case "nine":
 		return 9
-	case "ten", "dez":
-		return 10
-	case "jack", "queen", "king", "valete", "dama", "rei":
+	case "ten", "jack", "queen", "king":
 		return 10
 	default:
 		return 0
@@ -34,18 +33,23 @@ func ParseCard(card string) int {
 func FirstTurn(card1, card2, dealerCard string) string {
 	totalValue := ParseCard(card1) + ParseCard(card2)
 
-	if card1 == "ace" || card1 == "ás" {
-		if card2 == "ace" || card2 == "ás" {
-			return "P"
+	if (card1 == "ace" || card1 == "ás") && (card2 == "ace" || card2 == "ás") {
+		return "P" // Split
+	} else if totalValue == 21 {
+		if dealerCard == "ace" || dealerCard == "ten" || dealerCard == "jack" || dealerCard == "queen" || dealerCard == "king" {
+			return "S" // Stand
+		} else {
+			return "W" // Automatically win
 		}
-	} else if totalValue == 21 && (dealerCard != "ace" && dealerCard != "ten" && dealerCard != "ás" && dealerCard != "dez") {
-		return "W"
-	} else if (totalValue >= 17 && totalValue <= 20) || (totalValue == 21 && (card1 == "ace" || card1 == "ás" || card2 == "ace" || card2 == "ás")) {
-		return "S"
-	} else if (totalValue >= 12 && totalValue <= 16) || (totalValue == 21 && (dealerCard == "seven" || dealerCard == "sete" || dealerCard == "eight" || dealerCard == "oito" || dealerCard == "nine" || dealerCard == "nove" || dealerCard == "ten" || dealerCard == "dez" || dealerCard == "ace" || dealerCard == "ás") && (card1 == "ace" || card1 == "ás" || card2 == "ace" || card2 == "ás")) {
-		return "H"
+	} else if totalValue >= 17 && totalValue <= 20 {
+		return "S" // Stand
+	} else if (totalValue >= 12 && totalValue <= 16) {
+		if ParseCard(dealerCard) >= 7 {
+			return "H" // Hit
+		} else {
+			return "S" // Stand
+		}
 	} else {
-		return "H" // Add a default return value here
+		return "H" // Hit as default action
 	}
-	return "ola"
 }
