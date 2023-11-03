@@ -1,8 +1,6 @@
 package exercicios
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func TotalBirdCount(birdsPerDay []int) int {
 	total := 0
@@ -12,9 +10,12 @@ func TotalBirdCount(birdsPerDay []int) int {
 	return total
 }
 
-func BirdsInWeek(birdsPerDay []int, week int) int {
-	startIndex := (week - 1) * 7
-	endIndex := week * 7
+func BirdsInWeek(birdsPerDay []int, weekNumber int) int {
+	startIndex := (weekNumber - 1) * 7
+	endIndex := startIndex + 7
+	if endIndex > len(birdsPerDay) {
+		endIndex = len(birdsPerDay)
+	}
 	total := 0
 	for i := startIndex; i < endIndex; i++ {
 		total += birdsPerDay[i]
@@ -23,25 +24,16 @@ func BirdsInWeek(birdsPerDay []int, week int) int {
 }
 
 func FixBirdCountLog(birdsPerDay []int) []int {
-	for i := 1; i < len(birdsPerDay); i += 2 {
-		birdsPerDay[i]++
+	for i := 0; i < len(birdsPerDay); i++ {
+		if i == 0 || i%2 == 0 {
+			birdsPerDay[i]++
+		}
 	}
 	return birdsPerDay
 }
-
 func main4() {
 	birdsPerDay := []int{2, 5, 0, 7, 4, 1, 3, 0, 2, 5, 0, 1, 3, 1}
-
-	// Test TotalBirdCount
-	totalBirds := TotalBirdCount(birdsPerDay)
-	fmt.Println("Total Bird Count:", totalBirds)
-
-	// Test BirdsInWeek
-	weekNumber := 2
-	birdsInWeek := BirdsInWeek(birdsPerDay, weekNumber)
-	fmt.Printf("Birds in Week %d: %d\n", weekNumber, birdsInWeek)
-
-	// Test FixBirdCountLog
-	fixedBirdsPerDay := FixBirdCountLog(birdsPerDay)
-	fmt.Println("Fixed Bird Count Log:", fixedBirdsPerDay)
+	fmt.Println(TotalBirdCount(birdsPerDay))
+	fmt.Println(BirdsInWeek(birdsPerDay, 2))
+	fmt.Println(FixBirdCountLog(birdsPerDay))
 }
