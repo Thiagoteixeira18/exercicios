@@ -2,14 +2,20 @@ package exercicios
 
 import "fmt"
 
-// NewVoteCounter cria um contador de votos e retorna um ponteiro para ele.
+// ElectionResult defines the structure for the result of an election.
+type ElectionResult struct {
+	Name  string
+	Votes int
+}
+
+// NewVoteCounter creates a vote counter and returns a pointer to it.
 func NewVoteCounter(initialVotes int) *int {
 	counter := initialVotes
 	return &counter
 }
 
-// VoteCount retorna o número de votos no contador.
-// Se o contador for nil, assume-se que não há votos.
+// VoteCount returns the number of votes in the counter.
+// If the counter is nil, it is assumed that there are no votes.
 func VoteCount(counter *int) int {
 	if counter == nil {
 		return 0
@@ -17,45 +23,39 @@ func VoteCount(counter *int) int {
 	return *counter
 }
 
-// IncrementVoteCount incrementa o contador de votos pelo valor especificado.
-// Supõe-se que o ponteiro passado nunca seja nil.
+// IncrementVoteCount increments the vote counter by the specified value.
+// It assumes the passed pointer is never nil.
 func IncrementVoteCount(counter *int, increment int) {
 	*counter += increment
 }
 
-// ElectionResult representa o resultado de uma eleição.
-type ElectionResult struct {
-	Name  string
-	Votes int
-}
-
-// NewElectionResult cria um novo resultado de eleição para um candidato com um número especificado de votos.
+// NewElectionResult creates a new election result for a candidate with a specified number of votes.
 func NewElectionResult(name string, votes int) *ElectionResult {
 	return &ElectionResult{Name: name, Votes: votes}
 }
 
-// DisplayResult gera uma string para exibir o resultado da eleição de um candidato.
+// DisplayResult generates a string to display the result of a candidate's election.
 func DisplayResult(result *ElectionResult) string {
 	return fmt.Sprintf("%s (%d)", result.Name, result.Votes)
 }
 
-// DecrementVotesOfCandidate decrementa o número de votos para um candidato específico nos resultados finais.
+// DecrementVotesOfCandidate decrements the number of votes for a specific candidate in the final results.
 func DecrementVotesOfCandidate(finalResults map[string]int, candidate string) {
 	if votes, exists := finalResults[candidate]; exists {
 		finalResults[candidate] = votes - 1
 	}
 }
 
-func main10() {
-	// Exemplos de uso das funções:
+func main80() {
+	// Examples of using the functions:
 
-	// Criar um contador de votos
+	// Create a vote counter
 	var initialVotes int = 2
 	var counter *int
 	counter = NewVoteCounter(initialVotes)
 	fmt.Println("*counter == initialVotes:", *counter == initialVotes)
 
-	// Contar votos
+	// Count votes
 	var votes int = 3
 	var voteCounter *int
 	voteCounter = &votes
@@ -67,7 +67,7 @@ func main10() {
 	nilVoteCount := VoteCount(nilVoteCounter)
 	fmt.Println("VoteCount(nilVoteCounter):", nilVoteCount)
 
-	// Incrementar votos
+	// Increment votes
 	var voteCounter2 *int
 	voteCounter2 = &votes
 
@@ -76,18 +76,18 @@ func main10() {
 	fmt.Println("votes == 5:", votes == 5)
 	fmt.Println("*voteCounter2 == 5:", *voteCounter2 == 5)
 
-	// Criar resultado de eleição
+	// Create an election result
 	var result *ElectionResult
 	result = NewElectionResult("Peter", 3)
 
 	fmt.Println("result.Name == 'Peter':", result.Name == "Peter")
 	fmt.Println("result.Votes == 3:", result.Votes == 3)
 
-	// Exibir resultado da eleição
+	// Display election result
 	resultDisplay := DisplayResult(result)
 	fmt.Println("DisplayResult(result):", resultDisplay)
 
-	// Decrementar votos de um candidato nos resultados finais
+	// Decrement votes of a candidate in the final results
 	finalResults := map[string]int{
 		"Mary": 10,
 		"John": 51,
