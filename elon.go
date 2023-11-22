@@ -2,17 +2,15 @@ package exercicios
 
 import "fmt"
 
-// Car represents a remote controlled car.
-type Car1 struct {
+type Car2 struct {
 	speed        int
 	batteryDrain int
 	battery      int
 	distance     int
 }
 
-// NewCar creates and initializes a new Car instance.
-func NewCar1(speed, batteryDrain int) *Car {
-	return &Car{
+func NewCar2(speed, batteryDrain int) *Car2 {
+	return &Car2{
 		speed:        speed,
 		batteryDrain: batteryDrain,
 		battery:      100,
@@ -20,41 +18,36 @@ func NewCar1(speed, batteryDrain int) *Car {
 	}
 }
 
-// Drive simulates driving the car for a certain distance.
-func (c *Car) Drive() {
+func (c *Car2) Drive() {
 	if c.battery >= c.batteryDrain {
 		c.distance += c.speed
 		c.battery -= c.batteryDrain
 	}
 }
 
-// DisplayDistance returns the distance driven as a string.
-func (c *Car) DisplayDistance() string {
+func (c *Car2) DisplayDistance() string {
 	return fmt.Sprintf("Driven %d meters", c.distance)
 }
 
-// DisplayBattery returns the remaining battery charge as a string.
-func (c *Car) DisplayBattery() string {
+func (c *Car2) DisplayBattery() string {
 	return fmt.Sprintf("Battery at %d%%", c.battery)
 }
 
-// CanFinish checks if the car can finish a given race track distance without running out of battery.
-func (c *Car) CanFinish(trackDistance int) bool {
-	possibleDistance := c.battery / c.batteryDrain * c.speed
-	return possibleDistance >= trackDistance
+func (c *Car2) CanFinish(trackDistance int) bool {
+	distanceLeft := trackDistance - c.distance
+	batteryRequired := distanceLeft * c.batteryDrain / c.speed
+	return batteryRequired <= c.battery
 }
 
-func main1() {
+func main44() {
 	speed := 5
 	batteryDrain := 2
-	car := NewCar(speed, batteryDrain)
+	car := NewCar2(speed, batteryDrain)
 
-	// Drive the car and display status
 	car.Drive()
 	fmt.Println(car.DisplayDistance())
 	fmt.Println(car.DisplayBattery())
 
-	// Check if the car can finish a certain track distance
 	trackDistance := 100
 	fmt.Println(car.CanFinish(trackDistance))
 }
