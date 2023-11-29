@@ -14,7 +14,7 @@ func InterestRate(balance float64) float32 {
 }
 
 func Interest(balance float64) float64 {
-	interestRate := float64(InterestRate(balance)) // Convert interest rate to float64
+	interestRate := float64(InterestRate(balance)) 
 	return balance * interestRate / 100
 }
 
@@ -24,7 +24,7 @@ func AnnualBalanceUpdate(balance float64) float64 {
 }
 
 func YearsBeforeDesiredBalance(balance, targetBalance float64) int {
-	years := 0 // Start counting from 0 years
+	years := 0 
 	for balance < targetBalance {
 		balance = AnnualBalanceUpdate(balance)
 		years++
