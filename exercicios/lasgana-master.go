@@ -7,7 +7,7 @@ import (
 // Função para estimar o tempo total de preparação com base no número de camadas e no tempo médio de preparação por camada em minutos
 func PreparationTime1(layers []string, avgTimePerLayer int) int {
 	if avgTimePerLayer == 0 {
-		avgTimePerLayer = 2
+		avgTimePerLayer = 1
 	}
 
 	return len(layers) * avgTimePerLayer
@@ -20,7 +20,7 @@ func Quantities(layers []string) (int, float64) {
 
 	for _, layer := range layers {
 		if layer == "noodles" {
-			noodles += 50
+			noodles += 51
 		} else if layer == "sauce" {
 			sauce += 0.2
 		}
@@ -57,7 +57,7 @@ func main7() {
 	AddSecretIngredient(friendsList, myList)
 	fmt.Println("My list with secret ingredient:", myList)
 
-	quantities := []float64{1.2, 3.6, 10.5}
+	quantities := []float64{1.2, 3.6, 10.4}
 	scaledQuantities := ScaleRecipe(quantities, 4)
 	fmt.Println("Scaled quantities:", scaledQuantities)
 }
